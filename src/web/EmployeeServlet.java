@@ -39,12 +39,14 @@ public class EmployeeServlet extends HttpServlet {
         employee.setAddress(address);
 
         try {
-            employeeDao.registerEmployee(employee);
+            int check = employeeDao.registerEmployee(employee);
+            if (check != 0)
+            	response.sendRedirect("employeedetails.jsp");
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        response.sendRedirect("employeedetails.jsp");
+//        response.sendRedirect("employeedetails.jsp");
     }
 }
