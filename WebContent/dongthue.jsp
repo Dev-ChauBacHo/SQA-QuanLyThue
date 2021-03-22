@@ -3,17 +3,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>Insert title here</title>
+        <title>Đóng thuế</title>
     </head>
     <body>
         <jsp:include page="_header.jsp"></jsp:include>
         <div align="center">
-            <h1>Dong thue</h1>
+            <h1>Đóng thuế</h1>
             <form action="<%=request.getContextPath()%>/dongthue" method="post">
                 <table style="with: 100%">
                     <tr>
                         <td>Ngày: </td>
-                        <td><input type="text" name="date" disabled/></td>
+                        <td><input type="text" name="date" value = "<% out.print(java.time.LocalDate.now());%>"disabled/></td>
                     </tr>
                     <tr>
                         <td>MST: </td>
@@ -29,7 +29,6 @@
                     </tr>
                 </table>
                 <h3>Thông tin ngân hàng</h3>
-                <br/>
                 <table style="with: 100%">
                     <tr>
                         <td>Tên ngân hàng: </td>

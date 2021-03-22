@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.EmployeeDao;
 import model.Employee;
 
-@WebServlet("/register")
+@WebServlet("/")
 public class EmployeeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private EmployeeDao employeeDao;
@@ -50,3 +50,5 @@ public class EmployeeServlet extends HttpServlet {
 //        response.sendRedirect("employeedetails.jsp");
     }
 }
+
+

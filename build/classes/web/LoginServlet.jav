@@ -14,7 +14,7 @@ import model.LoginBean;
 import dao.LoginDao;
 
 
-@WebServlet("/login")
+@WebServlet("/")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private LoginDao loginDao;
