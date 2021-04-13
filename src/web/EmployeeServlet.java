@@ -1,7 +1,6 @@
 package web;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.EmployeeDao;
 import model.Employee;
 
-@WebServlet("/")
+@WebServlet("/register")
 public class EmployeeServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private EmployeeDao employeeDao;
@@ -23,20 +22,22 @@ public class EmployeeServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
 
-        String firstName = request.getParameter("firstName");
-        String lastName = request.getParameter("lastName");
-        String username = request.getParameter("username");
+        String name = request.getParameter("name");
+        String mst = request.getParameter("mst");
         String password = request.getParameter("password");
+        String email = request.getParameter("email");
         String address = request.getParameter("address");
-        String contact = request.getParameter("contact");
+        String phone = request.getParameter("phone");
+        String pin = request.getParameter("pin");
 
         Employee employee = new Employee();
-        employee.setFirstName(firstName);
-        employee.setLastName(lastName);
-        employee.setUsername(username);
+        employee.setName(name);
+        employee.setMst(mst);
         employee.setPassword(password);
-        employee.setContact(contact);
+        employee.setEmail(email);
         employee.setAddress(address);
+        employee.setPhone(phone);
+        employee.setPin(pin);
 
         try {
             int check = employeeDao.registerEmployee(employee);
@@ -50,5 +51,3 @@ public class EmployeeServlet extends HttpServlet {
 //        response.sendRedirect("employeedetails.jsp");
     }
 }
-
-

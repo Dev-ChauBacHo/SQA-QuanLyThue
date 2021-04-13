@@ -1,32 +1,71 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" import="java.util.ArrayList,java.sql.Connection,java.sql.CallableStatement,java.sql.ResultSet,dao.*,model.*"%>
+<%
+	Employee Em = (Employee)session.getAttribute("account");
+		if(Em==null){
+			response.sendRedirect("login.jsp?err=timeout");
+		}
+%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>Đóng thuế</title>
+        <style>
+			table, th, td {
+			  border: 1px solid black;
+			}
+			table.center {
+			  margin-left: auto; 
+			  margin-right: auto;
+			}
+		</style>
     </head>
     <body>
-        <jsp:include page="_header.jsp"></jsp:include>
+        
         <div align="center">
             <h1>Đóng thuế</h1>
-            <form action="<%=request.getContextPath()%>/dongthue" method="post">
                 <table style="with: 100%">
+                <% try
+             	{	long id=0;	
+                	if(request.getParameter("ID")!=null){
+	                		id=Long.parseLong(request.getParameter("ID"));
+	               
+	                	}
+                	
+            		Class.forName("com.mysql.cj.jdbc.Driver");
+            		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/qlthue2?allowPublicKeyRetrieval=true&useSSL=false","root","root");
+            		CallableStatement cs = con.prepareCall("select * from bill where idBill = "+ id);
+            		CallableStatement cs1 =con.prepareCall("select name from customer where maSoThue = "+ session.getAttribute("mst"));
+            		ResultSet rs = cs.executeQuery();
+            		ResultSet rs1 = cs1.executeQuery();
+            		while(rs.next()&&rs1.next()){
+                %>
                     <tr>
                         <td>Ngày: </td>
                         <td><input type="text" name="date" value = "<% out.print(java.time.LocalDate.now());%>"disabled/></td>
                     </tr>
                     <tr>
                         <td>MST: </td>
-                        <td><input type="text" name="masothue" disabled /></td>
+                        <td><input type="text" name="masothue" value = "<%=session.getAttribute("mst")%>" disabled /></td>
                     </tr>
                     <tr>
                         <td>Họ tên: </td>
-                        <td><input type="text" name="nguoinopthue" disabled /></td>
+                        <td><input type="text" name="nguoinopthue" value = "<%=rs1.getString("name") %>" disabled /></td>
                     </tr>
                     <tr>
-                        <td>Địa chỉ: </td>
-                        <td><input type="text" name="address" disabled /></td>
-                    </tr>
+                        <td>Tổng tiền thuế: </td>
+                        <td><input type="text" name="tong thue" value = "<%=rs.getString("tienthue") %>" disabled /></td>
+                    </tr>       
+                <%
+                }
+		
+}catch(Exception e){
+	out.print(e);
+}
+%>
                 </table>
                 <h3>Thông tin ngân hàng</h3>
                 <table style="with: 100%">
@@ -127,7 +166,24 @@
                             </div>
                         </td>
                     </tr>
+                    <tr>
+                        <td>Nộp vào NSNN (TK 7111): </td>
+                        <td>
+                            <input type="checkbox" checked disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Loại thuế: </td>
+                        <td>
+                            <input type="text" value = "Thuế nội địa" disabled />
+                        </td>
+                    </tr>
                 </table>
+                  
+                   
+					
+			<form action="dodongthue.jsp?ID=<%=Long.parseLong(request.getParameter("ID")) %>" method="post">
+			<input type="submit" value="Nộp tiền" />
             </form>
         </div>
         <script async="async" defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
