@@ -3,12 +3,23 @@ package dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import com.mysql.cj.jdbc.CallableStatement;
 
 import model.Bill;
 
 
 public class BillDao extends DAO {
+	
+	public BillDao() {
+		
+	}
+	
+	public BillDao(Connection conn) {
+		this.con = conn;
+	}
 	
 	 	public int khaiBaoThue(Bill bill) throws ClassNotFoundException {
 	        String INSERT_Bill_SQL = "INSERT INTO bill" +
@@ -36,7 +47,8 @@ public class BillDao extends DAO {
 	        }
 	        return result;
 	    }
-	 	public int DongThue(String id)throws ClassNotFoundException{
+	 	
+	 	public int dongThue(String id) throws ClassNotFoundException{
 	 		String Update_Bill_SQL = "update bill set status = true where idBill = " + id;
 	 		int result =0;
 	 		try(PreparedStatement preparedStatement = con.prepareStatement(Update_Bill_SQL)){
@@ -47,7 +59,24 @@ public class BillDao extends DAO {
 	 		return result;
 	 	}
 	 	
-	    public long TinhTienThue (long soTinhthue ,long soNgPhuthuoc) {
+	 	public String[] findInfor(String id, String mst) throws Exception {
+	 		String[] s = new String[2];
+	 		java.sql.CallableStatement cs = con.prepareCall("SELECT * FROM bill WHERE idBill = "+ id);
+    		java.sql.CallableStatement cs1 = con.prepareCall("SELECT name FROM customers WHERE maSoThue = "+ mst);
+    		ResultSet rs = cs.executeQuery();
+    		ResultSet rs1 = cs1.executeQuery();
+    		while(rs.next() && rs1.next()){
+    			s[0] = rs1.getString("name");
+    			s[1] = rs.getString("tienthue");
+    			
+    			return s;
+    		}
+    		return null;
+		}
+	 		
+	 	
+	 	
+	    public long tinhTienThue (long soTinhthue ,long soNgPhuthuoc) {
 	        if (soTinhthue < 0) throw new NumberFormatException();
 	        long tienThue = 0 ;
 	        if (soTinhthue > 11000000 ) {

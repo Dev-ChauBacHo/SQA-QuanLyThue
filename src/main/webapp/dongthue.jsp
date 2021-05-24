@@ -34,14 +34,11 @@
 	                		id=Long.parseLong(request.getParameter("ID"));
 	               
 	                	}
-                	
-            		Class.forName("com.mysql.cj.jdbc.Driver");
-            		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanly_thue","root","");
-            		CallableStatement cs = con.prepareCall("select * from bill where idBill = "+ id);
-            		CallableStatement cs1 =con.prepareCall("select name from customers where maSoThue = "+ session.getAttribute("mst"));
-            		ResultSet rs = cs.executeQuery();
-            		ResultSet rs1 = cs1.executeQuery();
-            		while(rs.next()&&rs1.next()){
+
+            		
+            		String[] s = (new BillDao()).findInfor(String.valueOf(id), session.getAttribute("mst").toString());
+            		
+            		if(s != null){
                 %>
                     <tr>
                         <td>Ngày: </td>
@@ -53,29 +50,30 @@
                     </tr>
                     <tr>
                         <td>Họ tên: </td>
-                        <td><input type="text" name="nguoinopthue" value = "<%=rs1.getString("name") %>" disabled /></td>
+                        <td><input type="text" name="nguoinopthue" value = "<%=s[0] %>" disabled /></td>
                     </tr>
                     <tr>
                         <td>Tổng tiền thuế: </td>
-                        <td><input type="text" name="tong thue" value = "<%=rs.getString("tienthue") %>" disabled /></td>
+                        <td><input type="text" name="tong thue" value = "<%=s[1] %>" disabled /></td>
                     </tr>       
                 <%
                 }
 		
-}catch(Exception e){
+} catch(Exception e){
 	out.print(e);
 }
 %>
+<form action="dodongthue.jsp?ID=<%=Long.parseLong(request.getParameter("ID")) %>" method="post">
                 </table>
                 <h3>Thông tin ngân hàng</h3>
                 <table style="with: 100%">
                     <tr>
                         <td>Tên ngân hàng: </td>
-                        <td><input type="text" name="date" /></td>
+                        <td><input type="text" name="ten_ngan_hang" id="ten_ngan_hang" required oninvalid="this.setCustomValidity('Vui lòng điền tên ngân hàng')" oninput="setCustomValidity('')"/></td>
                     </tr>
                     <tr>
                         <td>STK: </td>
-                        <td><input type="text" name="masothue"  /></td>
+                        <td><input type="text" name="masothue" required oninvalid="this.setCustomValidity('Vui lòng điền STK')" oninput="setCustomValidity('')"/></td>
                     </tr>
                 </table>
                 <h3>Thông tin cơ quan quản lý thu</h3>
@@ -85,8 +83,8 @@
                         <td>Tỉnh/TP: </td>
                         <td>
                             <div class="input-group w-50 pd-10">
-                                <select class="input-text" name="calc_shipping_provinces" required="">
-                                    <option value="">Tỉnh / Thành phố</option>
+                                <select class="input-text" name="calc_shipping_provinces" required oninvalid="this.setCustomValidity('Vui lòng chọn Tỉnh/TP')" onchange="setCustomValidity('')">
+                                    <option value="">Tỉnh/Thành phố</option>
                                     <option value="1">An Giang</option>
                                     <option value="2">Bà Rịa - Vũng Tàu</option>
                                     <option value="3">Bạc Liêu</option>
@@ -159,7 +157,7 @@
                         <td>Cơ quan quản lý thu: </td>
                         <td>
                             <div class="input-group w-50 pd-10">
-                                <select class="input-text" name="calc_shipping_district" required="">
+                                <select class="input-text" name="calc_shipping_district" required="" oninvalid="this.setCustomValidity('Vui lòng chọn cơ quan')" onchange="setCustomValidity('')">
                                     <option value="">Quận / Huyện</option>
                                 </select>
                                 <input class="billing_address_2" name="" type="hidden" value="">
@@ -182,8 +180,7 @@
                   
                    
 					
-			<form action="dodongthue.jsp?ID=<%=Long.parseLong(request.getParameter("ID")) %>" method="post">
-			<input type="submit" value="Nộp tiền" />
+			<input name = "dongthue_btn" type="submit" value="Nộp tiền" />
             </form>
         </div>
         <script async="async" defer="defer" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

@@ -23,6 +23,27 @@ public class Bill implements Serializable {
 	}
 	
 	
+	
+	public Bill(String date, String luong, String songuoi, String mst, String tienThue) {
+		super();
+		this.date = date;
+		this.luong = luong;
+		this.songuoi = songuoi;
+		this.mst = mst;
+		this.tienThue = tienThue;
+	}
+
+
+
+	public Bill(String date, String luong, String songuoi, String mst) {
+		super();
+		this.date = date;
+		this.luong = luong;
+		this.songuoi = songuoi;
+		this.mst = mst;
+	}
+
+
 	public Bill() {
 		super();
 	}

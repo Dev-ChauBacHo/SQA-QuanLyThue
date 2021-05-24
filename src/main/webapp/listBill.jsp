@@ -47,7 +47,7 @@
 		<th>ID</th>
 		<th>Mã số thuế</th>
 		<th>Ngày khai báo</th>
-		<th>Thu thap ca nhan</th>
+		<th>Thu thập cá nhân</th>
 		<th>Số người phụ thuộc</th>
 		<th>Tiền thuế</th>
 		<th>Trạng thái</th>
@@ -56,12 +56,13 @@
 	try
 {
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanly_thue?allowPublicKeyRetrieval=true&useSSL=false","root","");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanly_thue?allowPublicKeyRetrieval=true&useSSL=false","root","root");
 		CallableStatement cs = con.prepareCall("select * from bill where maSoThue = " + session.getAttribute("mst"));
 		
 		ResultSet rs = cs.executeQuery();
 		while(rs.next())
 		{
+			int i=0;
 			%>
 			<tr>
 		     <td> <%=rs.getString("idBill") %></td>
@@ -83,6 +84,7 @@
 		     	<%} %>
 		    </tr>
 		    <%
+		    i++;
 		}
 }catch(Exception e){
 	out.print(e);

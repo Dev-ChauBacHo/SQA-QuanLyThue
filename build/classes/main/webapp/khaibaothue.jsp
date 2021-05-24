@@ -23,7 +23,7 @@
     </tr>
     <tr>
      <td>Ngày khai báo</td>
-     <td><input type="date" name="date" id="date" /></td>
+     <td><input type="text" name="date" id="date" /></td>
     </tr>
     <tr>
      <td>Thu nhập cá nhân</td>
@@ -35,7 +35,7 @@
     </tr>
 
    </table>
-   <input type="submit" value="Khai báo" />
+   <input type="submit" name = "submit_btn" value="Khai báo" />
   </form>
  </div>
 </body>

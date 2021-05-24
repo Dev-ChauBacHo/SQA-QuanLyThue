@@ -28,7 +28,7 @@
 				</tr>
 
 			</table>
-			<input type="submit" value="Đăng nhập" />
+			<input type="submit" name="login_btn" value="Đăng nhập" />
 		</form>
 	</div>
 </body>
