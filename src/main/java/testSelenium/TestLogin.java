@@ -1,4 +1,4 @@
-package test;
+package testSelenium;
 
 import static org.junit.Assert.assertEquals;
 

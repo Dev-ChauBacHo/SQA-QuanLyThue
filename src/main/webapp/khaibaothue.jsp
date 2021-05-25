@@ -30,7 +30,7 @@
      <td><input type="text" name="luong" id="luong" /></td>
     </tr>
     <tr>
-     <td>Số người phục thuộc</td>
+     <td>Số người phụ thuộc</td>
      <td><input type="text" name="songuoi" id="songuoi"/></td>
     </tr>
 

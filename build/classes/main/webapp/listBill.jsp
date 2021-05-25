@@ -1,7 +1,8 @@
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="java.util.ArrayList,java.sql.Connection,java.sql.CallableStatement,java.sql.ResultSet,dao.*,model.*"%>
+    pageEncoding="UTF-8" import="java.util.ArrayList,java.sql.Connection,java.sql.CallableStatement,java.sql.ResultSet,dao.*,model.*"
+   %>
 <%
 	Employee Em = (Employee)session.getAttribute("account");
 		if(Em==null){
@@ -55,36 +56,37 @@
 	<%
 	try
 {
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quanly_thue?allowPublicKeyRetrieval=true&useSSL=false","root","root");
-		CallableStatement cs = con.prepareCall("select * from bill where maSoThue = " + session.getAttribute("mst"));
+
 		
-		ResultSet rs = cs.executeQuery();
-		while(rs.next())
+		ArrayList<Bill> list = (new BillDao()).findList(session.getAttribute("mst").toString());
+		for (Bill i: list)
 		{
-			int i=0;
 			%>
 			<tr>
-		     <td> <%=rs.getString("idBill") %></td>
-		     <td> <%=rs.getString("maSoThue")%></td>
+		     <td> <%=i.getIdBill() %></td>
+		     <td> <%=i.getMst()%></td>
 
-		     <td><%=rs.getString("date")%></td>
+		     <td><%=i.getDate()%></td>
 
-		     <td><%=rs.getString("luong")%></td>
+		     <td><%=i.getLuong()%></td>
 
-		     <td><%=rs.getString("songuoi")%></td>
+		     <td><%=i.getSonguoi()%></td>
 
-		     <td><%=rs.getString("tienthue")%></td>
+		     <td><%=i.getTienThue()%></td>
 		     <%
-		     	if (rs.getBoolean("status") == false ){%>
-		     		<td> <a href="dongthue.jsp?ID=<%=rs.getString("idBill") %>">Đóng thuế</a></td>
+		     	String status = i.getStatus();
+		     	if (status.equals("-1") ){%>
+		     		<td> <a href="dongthue.jsp?ID=<%=i.getIdBill() %>">Đóng thuế</a></td>
 		     	<%}
-		     	else {%>
+		     	else if (status.equals("1")){%>
 		     	<td> Đã đóng</td>
-		     	<%} %>
+		     	<%} else {
+		     		%>
+			     	<td> Đang chờ</td>
+			     	<%
+		     	} %>
 		    </tr>
 		    <%
-		    i++;
 		}
 }catch(Exception e){
 	out.print(e);

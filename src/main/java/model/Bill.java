@@ -4,15 +4,18 @@ import java.io.Serializable;
 
 public class Bill implements Serializable {
 	private static final long serialVersionUID = 1L;
+	private String idBill;
 	private String date;
 	private String luong;
 	private String songuoi;
 	private String mst;
 	private String tienThue;
-	private boolean status;
+	private String status;
 	
 	
-	public Bill(String date, String luong, String songuoi, String tienThue, String mst, boolean status) {
+	
+	
+	public Bill(String date, String luong, String songuoi, String tienThue, String mst, String status) {
 		super();
 		this.date = date;
 		this.luong = luong;
@@ -24,6 +27,23 @@ public class Bill implements Serializable {
 	
 	
 	
+	
+	
+	public Bill(String idBill, String date, String luong, String songuoi, String mst, String tienThue, String status) {
+		super();
+		this.idBill = idBill;
+		this.date = date;
+		this.luong = luong;
+		this.songuoi = songuoi;
+		this.mst = mst;
+		this.tienThue = tienThue;
+		this.status = status;
+	}
+
+
+
+
+
 	public Bill(String date, String luong, String songuoi, String mst, String tienThue) {
 		super();
 		this.date = date;
@@ -49,15 +69,46 @@ public class Bill implements Serializable {
 	}
 
 
-	public boolean isStatus() {
-		return status;
-	}
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
+//	public boolean isStatus() {
+//		return status;
+//	}
+//	public void setStatus(boolean status) {
+//		this.status = status;
+//	}
+	
+	
 	public String getDate() {
 		return date;
 	}
+	public String getStatus() {
+		return status;
+	}
+	
+	
+	
+
+	public String getIdBill() {
+		return idBill;
+	}
+
+
+
+
+
+	public void setIdBill(String idBill) {
+		this.idBill = idBill;
+	}
+
+
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
 	public void setDate(String date) {
 		this.date = date;
 	}

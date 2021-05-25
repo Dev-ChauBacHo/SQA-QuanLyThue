@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mysql.cj.jdbc.CallableStatement;
 
@@ -23,8 +25,8 @@ public class BillDao extends DAO {
 	
 	 	public int khaiBaoThue(Bill bill) throws ClassNotFoundException {
 	        String INSERT_Bill_SQL = "INSERT INTO bill" +
-	            "  (date, luong, songuoi, tienthue, maSoThue) VALUES " +
-	            " (?, ?, ?, ?, ?);";
+	            "  (date, luong, songuoi, tienthue, maSoThue, status) VALUES " +
+	            " (?, ?, ?, ?, ?, ?);";
 
 	        int result = 0;
 
@@ -36,6 +38,7 @@ public class BillDao extends DAO {
 	            preparedStatement.setString(3, bill.getSonguoi());
 	            preparedStatement.setString(4, bill.getTienThue());
 	            preparedStatement.setString(5, bill.getMst());
+	            preparedStatement.setString(6, bill.getStatus());
 
 	            System.out.println(preparedStatement);
 	            // Step 3: Execute the query or update query
@@ -49,7 +52,7 @@ public class BillDao extends DAO {
 	    }
 	 	
 	 	public int dongThue(String id) throws ClassNotFoundException{
-	 		String Update_Bill_SQL = "update bill set status = true where idBill = " + id;
+	 		String Update_Bill_SQL = "update bill set status = 0 where idBill = " + id;
 	 		int result =0;
 	 		try(PreparedStatement preparedStatement = con.prepareStatement(Update_Bill_SQL)){
 	 				result = preparedStatement.executeUpdate();
@@ -73,6 +76,23 @@ public class BillDao extends DAO {
     		}
     		return null;
 		}
+	 	
+	 	public ArrayList<Bill> findList(String mst) throws SQLException {
+	 		ArrayList<Bill> list = new ArrayList();
+	 		java.sql.CallableStatement cs = con.prepareCall("SELECT * FROM bill WHERE maSoThue = " + mst);
+			ResultSet rs = cs.executeQuery();
+			while (rs.next()) {
+				list.add(new Bill(rs.getString("idBill"),
+						rs.getString("date"),
+						rs.getString("luong"),
+						rs.getString("songuoi"),
+						rs.getString("maSoThue"),
+						rs.getString("tienthue"),
+						rs.getString("status")));
+			}
+			
+			return list;
+	 	}
 	 		
 	 	
 	 	

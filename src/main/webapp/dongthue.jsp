@@ -73,7 +73,7 @@
                     </tr>
                     <tr>
                         <td>STK: </td>
-                        <td><input type="text" name="masothue" required oninvalid="this.setCustomValidity('Vui lòng điền STK')" oninput="setCustomValidity('')"/></td>
+                        <td><input type="text" name="stk" required oninvalid="this.setCustomValidity('Vui lòng điền STK')" oninput="setCustomValidity('')"/></td>
                     </tr>
                 </table>
                 <h3>Thông tin cơ quan quản lý thu</h3>
@@ -157,7 +157,7 @@
                         <td>Cơ quan quản lý thu: </td>
                         <td>
                             <div class="input-group w-50 pd-10">
-                                <select class="input-text" name="calc_shipping_district" required="" oninvalid="this.setCustomValidity('Vui lòng chọn cơ quan')" onchange="setCustomValidity('')">
+                                <select class="input-text" name="calc_shipping_district" required oninvalid="this.setCustomValidity('Vui lòng chọn cơ quan')" onchange="setCustomValidity('')">
                                     <option value="">Quận / Huyện</option>
                                 </select>
                                 <input class="billing_address_2" name="" type="hidden" value="">

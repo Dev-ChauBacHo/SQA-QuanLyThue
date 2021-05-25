@@ -1,4 +1,4 @@
-package test;
+package testJUnit;
 
 import static org.junit.Assert.*;
 
@@ -16,10 +16,10 @@ import model.Bill;
 public class BillDaoKhaiBaoThueTest {
 
 	private BillDao khaibaothue = new BillDao();
-	Bill bill1 = new Bill("2021-01-01", "2000000", "1", "0", "87654321", false);
-	Bill bill2 = new Bill("2021-03-12", "1000000", "1", "0", "87654321", false);
-	Bill bill3 = new Bill("2021-05-09", "12000000", "1", "1000000", "87654321", false);
-	Bill bill4 = new Bill("2021-23-05", "15000000", "1", "4000000", "87654321", false);
+	Bill bill1 = new Bill("2021-01-01", "2000000", "1", "0", "87654321", "-1");
+	Bill bill2 = new Bill("2021-03-12", "1000000", "1", "0", "87654321", "-1");
+	Bill bill3 = new Bill("2021-05-09", "12000000", "1", "1000000", "87654321", "-1");
+	Bill bill4 = new Bill("2021-23-05", "15000000", "1", "4000000", "87654321", "-1");
 	Bill bill5 = new Bill();
 	DAO dao = new DAO();
 	Connection con = dao.con;
@@ -106,7 +106,7 @@ public class BillDaoKhaiBaoThueTest {
 	            			rs.getString(4),
 	            			rs.getString(5),
 	            			rs.getString(6),
-	            			rs.getBoolean(7));
+	            			rs.getString(7));
 	            	System.out.println(bill2.toString());
 	            }
 	            
@@ -115,7 +115,7 @@ public class BillDaoKhaiBaoThueTest {
 	    	    assertEquals(bill2.getSonguoi(), bill1.getSonguoi());
 	    	    assertEquals(bill2.getTienThue(), bill1.getTienThue());
 	    	    assertEquals(bill2.getMst(), bill1.getMst());
-	    	    assertEquals(bill2.isStatus(), bill1.isStatus());
+	    	    assertEquals(bill2.getStatus(), bill1.getStatus());
 
 	        } catch (SQLException e) {
 	            // process sql exception

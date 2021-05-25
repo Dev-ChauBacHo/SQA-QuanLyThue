@@ -19,6 +19,7 @@ String Date = (String)request.getParameter("date");
     long tienthue = dao.tinhTienThue(soLuong, songuoi);
     bill.setTienThue(String.valueOf(tienthue));
     bill.setMst(mst);
+    bill.setStatus("-1");
     dao.khaiBaoThue(bill);
     response.sendRedirect("listBill.jsp");
 %>

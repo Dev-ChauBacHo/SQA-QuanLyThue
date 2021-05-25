@@ -16,7 +16,7 @@ import model.Bill;
 public class BillDaoDongThueTest {
 		DAO dao = new DAO();
 		Connection con = dao.con;
-		Bill bill1 = new Bill("2021-01-01", "2000000", "1", "0", "87654321", false);
+		Bill bill1 = new Bill("2021-01-01", "2000000", "1", "0", "87654321", "-1");
 		Bill bill2 = new Bill();
 		String id="2";
 		String id1="1";
