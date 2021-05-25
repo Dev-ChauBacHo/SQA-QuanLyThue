@@ -14,19 +14,19 @@
    <table style="with: 80%">
     <tr>
      <td>Mã số thuế</td>
-     <td><input type="text" name="mst" /></td>
+     <td><input type="number" name="mst" required oninvalid="this.setCustomValidity('Vui lòng nhập Mã số thuế')" onchange="setCustomValidity('')"/></td>
     </tr>
     <tr>
      <td>Tên</td>
-     <td><input type="text" name="name" /></td>
+     <td><input type="text" name="name" required oninvalid="this.setCustomValidity('Vui lòng nhập tên')" onchange="setCustomValidity('')"/></td>
     </tr>
     <tr>
      <td>Số điện thoại</td>
-     <td><input type="text" name="phone" /></td>
+     <td><input type="text" name="phone" required oninvalid="this.setCustomValidity('Vui lòng nhập số điện thoại')" onchange="setCustomValidity('')"/></td>
     </tr>
     <tr>
      <td>Email</td>
-     <td><input type="text" name="email" /></td>
+     <td><input type="text" name="email" required oninvalid="this.setCustomValidity('Vui lòng nhập email')" onchange="setCustomValidity('')"/></td>
     </tr>
     <tr>
      <td>Địa chỉ</td>
@@ -38,10 +38,10 @@
     </tr>
     <tr>
      <td>Mật khẩu</td>
-     <td><input type="password" name="password" required/></td>
+     <td><input type="password" name="password" required oninvalid="this.setCustomValidity('Vui lòng nhập Mật khẩu')" onchange="setCustomValidity('')"/></td>
     </tr>
    </table>
-   <input type="submit" value="Submit" />
+   <input type="submit" name = "register_btn" value="Submit" />
   </form>
  </div>
 </body>

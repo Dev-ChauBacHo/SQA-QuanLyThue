@@ -8,10 +8,10 @@
 </head>
 <body>
 <%
-	Employee Em = (Employee)session.getAttribute("account");
-		if(Em==null){
-			response.sendRedirect("login.jsp?err=timeout");
-		}
+  Employee Em = (Employee)session.getAttribute("account");
+    if(Em==null){
+      response.sendRedirect("login.jsp?err=timeout");
+    }
 %>
 <div align="center">
   <h1>Khai báo thuế</h1>
@@ -23,15 +23,15 @@
     </tr>
     <tr>
      <td>Ngày khai báo</td>
-     <td><input type="text" name="date" id="date" /></td>
+     <td><input type="text" name="date" required oninvalid="this.setCustomValidity('Vui lòng điền ngày thanh toán')" onchange="setCustomValidity('')" name="date" id="date" /></td>
     </tr>
     <tr>
      <td>Thu nhập cá nhân</td>
-     <td><input type="text" name="luong" id="luong" /></td>
+     <td><input type="number" min = "0" name="luong" required oninvalid="this.setCustomValidity('Vui lòng điền thu thập')" onchange="setCustomValidity('')" name="luong" id="luong" /></td>
     </tr>
     <tr>
      <td>Số người phụ thuộc</td>
-     <td><input type="text" name="songuoi" id="songuoi"/></td>
+     <td><input type="number" min = "0" name="songuoi" required oninvalid="this.setCustomValidity('Vui lòng điền số người phụ thuộc')" onchange="setCustomValidity('')" name="songuoi" id="songuoi"/></td>
     </tr>
 
    </table>

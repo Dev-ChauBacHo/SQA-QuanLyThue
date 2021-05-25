@@ -35,10 +35,10 @@
 	               
 	                	}
 
-            		
+      
             		String[] s = (new BillDao()).findInfor(String.valueOf(id), session.getAttribute("mst").toString());
             		
-            		if(s != null){
+            		if(s != null) {
                 %>
                     <tr>
                         <td>Ngày: </td>
@@ -212,7 +212,7 @@
                 c.forEach(function(i, e) {
                   e += +1
                   stc += '<option value=' + e + '>' + i + '</option>'
-                  $this.html('<option value="">Tỉnh / Thành phố</option>' + stc)
+                  $this.html('<option value="">Tỉnh /Thành phố</option>' + stc)
                   if (address_1 = localStorage.getItem('address_1_saved')) {
                     $('select[name="calc_shipping_provinces"] option').each(function() {
                       if ($(this).text() == address_1) {
@@ -228,7 +228,7 @@
                     if (r != '') {
                       arr[i].forEach(function(el) {
                         str += '<option value="' + el + '">' + el + '</option>'
-                        $('select[name="calc_shipping_district"]').html('<option value="">Quận / Huyện</option>' + str)
+                        $('select[name="calc_shipping_district"]').html('<option value="">Quận /Huyện</option>' + str)
                       })
                       var address_1 = $this.children('option:selected').text()
                       var district = $('select[name="calc_shipping_district"]').html()

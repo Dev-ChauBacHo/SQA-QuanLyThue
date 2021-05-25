@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 public class TestLogin extends TestDriver{
 	ChromeDriver driver = getDriver();
+	
 	@Test
 	public void login_test() {
 		driver.get("http://localhost:8080/ThueSQA/login.jsp");

@@ -1,8 +1,6 @@
 package testSelenium;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,16 +12,14 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import dao.BillDao;
 import dao.DAO;
-import model.Bill;
 
-public class TestDongThue extends TestDriver{
+public class TestDongThue extends TestDriver {
 	ChromeDriver driver = getDriver();
 	String mst = "12345678";
 	DAO dao = new DAO();
 	Connection con = dao.con;
-	int id = 29;
+	String id = "29";
 	
 	private void login() {
 		driver.get("http://localhost:8080/ThueSQA/login.jsp");
@@ -36,7 +32,7 @@ public class TestDongThue extends TestDriver{
 	
 	private void clickDongThue() {
 		driver.get("http://localhost:8080/ThueSQA/listBill.jsp");
-		driver.findElement(By.xpath("//a[@href='dongthue.jsp?ID=29']")).click();
+		driver.findElement(By.xpath("//a[@href='dongthue.jsp?ID=" + id + "']")).click();
 	}
 	
 	// DT001
@@ -59,10 +55,8 @@ public class TestDongThue extends TestDriver{
 		
 //		con.setAutoCommit(false);
 		driver.findElement(By.name("dongthue_btn")).click();
-		checkDB("29");
-		
-		String rollback_update = "UPDATE bill SET status = -1 WHERE idBill = ? ";
-		rollbackUpdate(rollback_update, "29");
+		checkDB(id);
+		rollbackUpdate(id);
 		driver.close();
 	}
 	
@@ -160,8 +154,7 @@ public class TestDongThue extends TestDriver{
 			assert false;
 		} finally {
 		
-			String rollback_update = "UPDATE bill SET status = -1 WHERE idBill = ? ";
-			rollbackUpdate(rollback_update, "29");
+			rollbackUpdate("29");
 			driver.close();
 		}
 	}
@@ -194,8 +187,7 @@ public class TestDongThue extends TestDriver{
 			assert false;
 		} finally {
 		
-			String rollback_update = "UPDATE bill SET status = -1 WHERE idBill = ? ";
-			rollbackUpdate(rollback_update, "29");
+			rollbackUpdate("29");
 			driver.close();
 		}
 	}
@@ -229,8 +221,7 @@ public class TestDongThue extends TestDriver{
 			assert false;
 		} finally {
 		
-			String rollback_update = "UPDATE bill SET status = -1 WHERE idBill = ? ";
-			rollbackUpdate(rollback_update, "29");
+			rollbackUpdate("29");
 			driver.close();
 		}
 	}
@@ -263,8 +254,7 @@ public class TestDongThue extends TestDriver{
 			assert false;
 		} finally {
 		
-			String rollback_update = "UPDATE bill SET status = -1 WHERE idBill = ? ";
-			rollbackUpdate(rollback_update, "29");
+			rollbackUpdate("29");
 			driver.close();
 		}
 	}
@@ -272,27 +262,28 @@ public class TestDongThue extends TestDriver{
 	public void checkDB(String id) throws SQLException {
  		String sql = "SELECT status FROM bill WHERE idBill = ?";
 	    try (
-	            // Step 2:Create a statement using connection object
-	            PreparedStatement preparedStatement = con.prepareStatement(sql)) {
-	            preparedStatement.setString(1, id);
+            // Step 2:Create a statement using connection object
+            PreparedStatement preparedStatement = con.prepareStatement(sql)) {
+            preparedStatement.setString(1, id);
 
-	            System.out.println(preparedStatement);
-	            // Step 3: Execute the query or update query
-	            ResultSet rs = preparedStatement.executeQuery();
-	            
-	            while (rs.next()) {
-	            	assertEquals("0", rs.getString(1));
-	            }
+            System.out.println(preparedStatement);
+            // Step 3: Execute the query or update query
+            ResultSet rs = preparedStatement.executeQuery();
+            
+            while (rs.next()) {
+            	assertEquals("0", rs.getString(1));
+            }
 
-	        } catch (SQLException e) {
-	            // process sql exception
-	            e.printStackTrace();
-	        }
+        } catch (SQLException e) {
+            // process sql exception
+            e.printStackTrace();
+        }
  		
 	}
 	
-	public void rollbackUpdate(String rollback_update, String id) throws SQLException {
+	public void rollbackUpdate(String id) throws SQLException {
 		int result = 0;
+		String rollback_update = "UPDATE bill SET status = -1 WHERE idBill = ? ";
 		con.setAutoCommit(true);
  		try(
 			PreparedStatement preparedStatement = con.prepareStatement(rollback_update)){

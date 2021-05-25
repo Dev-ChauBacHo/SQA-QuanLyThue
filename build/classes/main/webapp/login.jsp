@@ -11,7 +11,7 @@
 	if(request.getParameter("err") !=null && request.getParameter("err").equalsIgnoreCase("timeout")){
 		%> <h4>Hết phiên làm việc. Làm ơn đăng nhập lại!</h4><%
 	}else if(request.getParameter("err") != null && request.getParameter("err").equalsIgnoreCase("fail")){
-		%> <h4 color="red">Sai tên đăng nhập/mật khẩu!</h4><%
+		%> <h4 name = "alert" color="red">Sai tên đăng nhập/mật khẩu!</h4><%
 	}
 %>
 	<div align="center">
@@ -20,11 +20,11 @@
 			<table style="with: 100%">
 				<tr>
 					<td>Mã số thuế</td>
-					<td><input type="text" name="mst" id="mst" required/></td>
+					<td><input type="text" name="mst" id="mst" required oninvalid="this.setCustomValidity('Bạn chưa nhập Mã số thuế')" onchange="setCustomValidity('')"/></td>
 				</tr>
 				<tr>
 					<td>Mật khẩu</td>
-					<td><input type="password" name="password" id="password" required/></td>
+					<td><input type="password" name="password" id="password" required oninvalid="this.setCustomValidity('Mật khẩu không được để trống')" onchange="setCustomValidity('')"/></td>
 				</tr>
 
 			</table>

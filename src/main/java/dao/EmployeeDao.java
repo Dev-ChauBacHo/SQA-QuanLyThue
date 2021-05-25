@@ -10,10 +10,9 @@ import model.Employee;
 public class EmployeeDao extends DAO {
 
     public int registerEmployee(Employee employee) throws ClassNotFoundException {
-        String INSERT_USERS_SQL = "INSERT INTO customer" +
+        String INSERT_USERS_SQL = "INSERT INTO customers" +
             "  (maSoThue, name, phone, email, address, PIN, pass) VALUES " +
-            " (?, ?, ?, ?, ?,?,?);";
-
+            " (?, ?, ?, ?, ?, ?, ?);";
         int result = 0;
 
         Class.forName("com.mysql.jdbc.Driver");
